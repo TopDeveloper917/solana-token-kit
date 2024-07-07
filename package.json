@@ -1,0 +1,49 @@
+{
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/lab": "^4.0.0-alpha.61",
+    "@metaplex-foundation/js": "^0.20.1",
+    "@metaplex-foundation/mpl-token-metadata": "^2.5.2",
+    "@mui/material": "^5.15.21",
+    "@project-serum/serum": "^0.13.65",
+    "@raydium-io/raydium-sdk": "^1.3.1-beta.48",
+    "@solana/spl-token": "^0.4.0",
+    "@solana/wallet-adapter-react": "^0.15.35",
+    "@solana/wallet-adapter-react-ui": "^0.9.35",
+    "@solana/wallet-adapter-wallets": "^0.19.32",
+    "@solana/web3.js": "^1.89.1",
+    "@types/bs58": "^4.0.4",
+    "bip39": "^3.1.0",
+    "bn.js": "^5.2.1",
+    "form-data": "^4.0.0",
+    "fs": "^0.0.1-security",
+    "jito-ts": "^3.0.1",
+    "next": "^14.2.4",
+    "nextjs-cors": "^2.2.0",
+    "nft.storage": "^7.1.1",
+    "pino-pretty": "^11.2.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-query": "^3.39.3",
+    "websocket": "^1.0.34",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/bn.js": "^5.1.5",
+    "@types/react": "18.3.3",
+    "autoprefixer": "^10.4.19",
+    "nodemon": "^3.0.3",
+    "postcss": "^8.4.39",
+    "tailwindcss": "^3.4.4",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.3.3"
+  }
+}
