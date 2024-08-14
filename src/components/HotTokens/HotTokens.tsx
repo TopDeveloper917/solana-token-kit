@@ -4,16 +4,18 @@ import BigShadow from './BigShadow'
 import RightDecor from './RightDecor'
 import LeftShadow from './LeftShadow'
 import { fetchHotCollections } from '../../utils/fetchData';
+import { useWallet } from '@solana/wallet-adapter-react';
 
 export default function HotTokens() {
+    const wallet = useWallet()
     const [hottestData, setHottestData] = React.useState<any[]>();
     const [isLoading, setIsLoading] = React.useState(true);
     React.useEffect(() => {
         const fetchData = async () => {
             try {
                 setIsLoading(true);
-                const data = await fetchHotCollections();
-                setHottestData(data.data.tokens);
+                const data = await fetchHotCollections(wallet.publicKey);
+                setHottestData(data);
                 setIsLoading(false);
                 console.log(data, 'data>>><<<<>>><<<hottest')
                 // Handle the data as needed
@@ -47,7 +49,7 @@ export default function HotTokens() {
                         <div className=' grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-6'>
                             {hottestData.slice(0, 12).map((item, index) => (
                                 <div key={index}>
-                                    <HotTokensComp no={index + 1} title={item.name} imgUrl={item.logoURI} mintNumber={item.mc} />
+                                    <HotTokensComp no={index + 1} title={item.content.metadata.name} imgUrl={item.content.links.image} mintNumber={item.token_info.supply} key={index} />
                                 </div>
                             ))}
                         </div>

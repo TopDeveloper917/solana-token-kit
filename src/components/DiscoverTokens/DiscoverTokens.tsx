@@ -1,8 +1,10 @@
 import React from 'react'
 import DiscoverTokensComp from './DiscoverTokensComp'
+import { useWallet } from '@solana/wallet-adapter-react';
 import { fetchHotCollections } from '@/utils/fetchData';
 
 export default function DiscoverTokens() {
+    const wallet = useWallet()
     const [isLoading, setIsLoading] = React.useState(true);
     const [totalNumber, setTotalNumber] = React.useState(0);
     const [hottestData, setHottestData] = React.useState<any[]>();
@@ -22,9 +24,10 @@ export default function DiscoverTokens() {
         const fetchData = async () => {
             try {
                 setIsLoading(true);
-                const data = await fetchHotCollections();
-                const tempData = getRandomSubarray(data.data.tokens, data.data.tokens.length);
-                setTotalNumber(data.data.total);
+                const data = await fetchHotCollections(wallet.publicKey);
+                const tempData = getRandomSubarray(data, data.length);
+                setTotalNumber(data.length);
+                
                 setHottestData(tempData);
                 setIsLoading(false);
                 console.log(data, '>>>>><<<<<');
@@ -58,7 +61,7 @@ export default function DiscoverTokens() {
                 </div>
                 <div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4  xl:grid-cols-5 gap-6'>
                     {(!isLoading) && (hottestData?.length) && hottestData.slice(0, discoverNumber).map((item, index) => (
-                        <DiscoverTokensComp title={item.name} imgUrl={item.logoURI} mintedNumber={item.mc} key={index}/>
+                        <DiscoverTokensComp title={item.content.metadata.name} imgUrl={item.content.links.image} mintedNumber={item.token_info.supply} key={index}/>
                     ))}
                 </div>
                 <div className='flex mx-auto justify-center items-center'>
