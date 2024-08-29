@@ -1,4 +1,5 @@
-export const fetchHotCollections = async () => {
+export const fetchHotCollections = async (owner) => {
+  console.log(owner);
   try {
     const response = await fetch("https://devnet.helius-rpc.com/?api-key=ff11e47b-f217-4498-9cba-0daf7a3e8164", {
       method: 'POST',
@@ -10,7 +11,7 @@ export const fetchHotCollections = async () => {
         id: 'my-id',
         method: 'getAssetsByOwner',
         params: {
-          ownerAddress: '6ZwxV7AfzecydMyW2BdwwNVvkL1CQmjiby9e61moi19d',
+          ownerAddress: owner,
           page: 1, // Starts at 1
           limit: 1000,
           displayOptions: {
@@ -23,19 +24,15 @@ export const fetchHotCollections = async () => {
     console.log(result);
 
     // Process the response to get token data
-    const tokens = response.data.result.value;
+    const tokens = result.items;
     
     // Sort tokens by balance (as a simple proxy for popularity)
-    const sortedTokens = tokens.sort((a, b) => 
-      b.account.data.parsed.info.tokenAmount.uiAmount - 
-      a.account.data.parsed.info.tokenAmount.uiAmount
-    ).slice(0, 20); // Get top 20 tokens
+    // const sortedTokens = tokens.sort((a, b) => 
+    //   b.token_info.balance - 
+    //   a.token_info.balance
+    // ).slice(0, 20); // Get top 20 tokens
 
-    return sortedTokens.map(token => ({
-      address: token.account.data.parsed.info.mint,
-      balance: token.account.data.parsed.info.tokenAmount.uiAmount,
-      // Add other relevant fields here
-    }));
+    return tokens;
   } catch (error) {
     console.error('Error fetching token list data:', error);
     throw error;
